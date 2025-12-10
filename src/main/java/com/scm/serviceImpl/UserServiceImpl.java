@@ -3,6 +3,8 @@ package com.scm.serviceImpl;
 
 import com.scm.dto.UserDto;
 import com.scm.entities.User;
+import com.scm.exceptions.BadRequestException;
+import com.scm.exceptions.ResourceNotFoundException;
 import com.scm.repositories.UserRepository;
 import com.scm.servicesInterface.UserService;
 import com.scm.utils.mappers.UserMapper;
@@ -24,14 +26,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserById(Long id) {
-        return userRepository.findById(id)
+    public UserDto getUserById(Long userId) {
+        return userRepository.findById(userId)
                 .map(UserMapper::toDto)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
     }
 
     @Override
     public UserDto getUserByEmail(String email) {
+        if (email == null || email.isBlank()) {
+            throw new BadRequestException("Email cannot be empty");
+        }
         return userRepository.findByEmail(email)
                 .map(UserMapper::toDto)
                 .orElse(null);
@@ -47,7 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("This is User Id is invalid"));
+        if(user!=null)
+            userRepository.deleteById(id);
     }
 }
 

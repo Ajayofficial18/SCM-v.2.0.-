@@ -3,6 +3,7 @@ package com.scm.serviceImpl;
 import com.scm.dto.ContactDto;
 import com.scm.entities.Contact;
 import com.scm.entities.User;
+import com.scm.exceptions.ResourceNotFoundException;
 import com.scm.repositories.ContactRepository;
 import com.scm.repositories.UserRepository;
 import com.scm.servicesInterface.ContactService;
@@ -31,7 +32,7 @@ public class ContactServiceImpl implements ContactService {
     public ContactDto getContactById(Long id) {
         return contactRepo.findById(id)
                 .map(ContactMapper::toDto)
-                .orElse(null);
+                .orElseThrow(()-> new ResourceNotFoundException("Invalid ContactId"));
     }
 
     @Override
@@ -44,8 +45,8 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto updateContact(Long id, ContactDto dto) {
-        Contact contact = contactRepo.findById(id).orElse(null);
-        if (contact == null) return null;
+        Contact contact = contactRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Invalid ContactId enter agian with correct ContactId"));
+
 
         contact.setName(dto.getName());
         contact.setEmail(dto.getEmail());
