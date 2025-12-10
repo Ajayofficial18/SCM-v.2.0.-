@@ -5,6 +5,7 @@ import com.scm.dto.UserDto;
 import com.scm.entities.User;
 import com.scm.repositories.UserRepository;
 import com.scm.servicesInterface.UserService;
+import com.scm.utils.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;

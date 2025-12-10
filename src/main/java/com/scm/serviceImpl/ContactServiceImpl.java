@@ -6,6 +6,7 @@ import com.scm.entities.User;
 import com.scm.repositories.ContactRepository;
 import com.scm.repositories.UserRepository;
 import com.scm.servicesInterface.ContactService;
+import com.scm.utils.mappers.ContactMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

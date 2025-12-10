@@ -9,5 +9,6 @@ public class ScmApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ScmApplication.class, args);
         System.out.println("SCM(v.2.0) : Started");
+        System.out.println("welcome to Smart contact manager :");
 	}
 }
