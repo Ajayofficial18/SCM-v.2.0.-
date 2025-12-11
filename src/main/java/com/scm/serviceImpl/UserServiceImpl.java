@@ -8,6 +8,7 @@ import com.scm.exceptions.ResourceNotFoundException;
 import com.scm.repositories.UserRepository;
 import com.scm.servicesInterface.UserService;
 import com.scm.utils.mappers.UserMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.findByEmail(email)
                 .map(UserMapper::toDto)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email " + email));
     }
 
     @Override
@@ -52,9 +53,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("This is User Id is invalid"));
-        if(user!=null)
-            userRepository.deleteById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid User ID"));
+        userRepository.delete(user);
     }
 }
 
