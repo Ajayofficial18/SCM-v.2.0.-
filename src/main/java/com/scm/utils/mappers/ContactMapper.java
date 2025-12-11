@@ -8,15 +8,15 @@ import com.scm.entities.Contact;
 public class ContactMapper {
 
     public static ContactDto toDto(Contact c) {
-        return ContactDto.builder()
-                .id(c.getId())
-                .name(c.getName())
-                .phone(c.getPhone())
-                .email(c.getEmail())
-                .address(c.getAddress())
-                .description(c.getDescription())
-                .imageUrl(c.getImageUrl())
-                .build();
+        ContactDto dto = new ContactDto();
+        dto.setId(c.getId());
+        dto.setName(c.getName());
+        dto.setPhone(c.getPhone());
+        dto.setEmail(c.getEmail());
+        dto.setAddress(c.getAddress());
+        dto.setDescription(c.getDescription());
+        dto.setImageUrl(c.getImageUrl());
+        return dto;
     }
 
     public static Contact toEntity(ContactDto dto) {

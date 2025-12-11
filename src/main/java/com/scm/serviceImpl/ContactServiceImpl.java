@@ -22,9 +22,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto createContact(Long userId, ContactDto dto) {
-        User user = userRepo.findById(userId).orElse(null);
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid UserId"));
+
         Contact contact = ContactMapper.toEntity(dto);
         contact.setUser(user);
+
         return ContactMapper.toDto(contactRepo.save(contact));
     }
 
@@ -32,7 +35,8 @@ public class ContactServiceImpl implements ContactService {
     public ContactDto getContactById(Long id) {
         return contactRepo.findById(id)
                 .map(ContactMapper::toDto)
-                .orElseThrow(()-> new ResourceNotFoundException("Invalid ContactId"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Contact not found with id " + id));
     }
 
     @Override
@@ -45,20 +49,25 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto updateContact(Long id, ContactDto dto) {
-        Contact contact = contactRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Invalid ContactId enter agian with correct ContactId"));
 
+        Contact contact = contactRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid ContactId"));
 
         contact.setName(dto.getName());
         contact.setEmail(dto.getEmail());
         contact.setPhone(dto.getPhone());
         contact.setAddress(dto.getAddress());
         contact.setDescription(dto.getDescription());
+        contact.setImageUrl(dto.getImageUrl());
 
         return ContactMapper.toDto(contactRepo.save(contact));
     }
 
     @Override
     public void deleteContact(Long id) {
-        contactRepo.deleteById(id);
+        Contact contact = contactRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid ContactId"));
+
+        contactRepo.delete(contact);
     }
 }

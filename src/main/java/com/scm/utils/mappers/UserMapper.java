@@ -11,6 +11,7 @@ public class UserMapper {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
+                .password(user.getPassword())  // ADD THIS
                 .about(user.getAbout())
                 .imageUrl(user.getImageUrl())
                 .role(user.getRole())
@@ -22,10 +23,12 @@ public class UserMapper {
                 .id(dto.getId())
                 .name(dto.getName())
                 .email(dto.getEmail())
+                .password(dto.getPassword())  // ADD THIS
                 .about(dto.getAbout())
                 .imageUrl(dto.getImageUrl())
                 .role(dto.getRole())
                 .build();
     }
+
 }
 
