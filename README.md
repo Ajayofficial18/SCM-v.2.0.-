@@ -207,19 +207,10 @@ GET  /api/user/{id}
 
 ## 🤝 **Contributions**
 
-Contributions, issues, and feature requests are welcome!
+We welcome contributions!  
 
-Feel free to contribute by submitting a pull request. For major changes, please open an issue first to discuss the changes.
+Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get started.
 
-Branching rules:
-
-main → stable production-ready code
-
-develop → active development
-
-feature/... → individual features
-
----
 
 ## 📄 **License**
 
