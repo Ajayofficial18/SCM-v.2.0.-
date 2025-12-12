@@ -218,7 +218,7 @@ Please include:
 
 Create a new issue here:
 
-Issues Page: https://github.com/Ajayofficial18/SCM-v.2.0.-.git/issues
+Issues Page: https://github.com/Ajayofficial18/SCM-v.2.0.-/issues
 
 ---
 
